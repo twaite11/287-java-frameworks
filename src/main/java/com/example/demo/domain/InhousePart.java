@@ -15,8 +15,10 @@ public class InhousePart extends Part{
     int partId;
 
     public InhousePart() {
+    } //inhouse part constructor defined and variables set
+    public InhousePart(String name, double price, int inv) {
+        super(name, price, inv);
     }
-
     public int getPartId() {
         return partId;
     }
