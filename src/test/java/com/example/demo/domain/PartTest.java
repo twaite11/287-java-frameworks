@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -155,5 +156,18 @@ class PartTest {
         partIn.setId(1l);
         partOut.setId(1l);
         assertEquals(partIn.hashCode(),partOut.hashCode());
+    }
+    // Test for inventory being below the minimum
+    @Test
+    void testInvBelowMin() {
+        InhousePart testPart = new InhousePart("Test Part", 10.0, 5, 2, 10);
+        assertThrows(IllegalArgumentException.class, () -> testPart.setInv(1));
+    }
+
+    // Test for inventory being above the maximum
+    @Test
+    void testInvAboveMax() {
+        InhousePart testPart = new InhousePart("Test Part", 10.0, 5, 2, 10);
+        assertThrows(IllegalArgumentException.class, () -> testPart.setInv(15));
     }
 }
