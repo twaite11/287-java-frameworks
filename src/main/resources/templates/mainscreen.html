@@ -19,6 +19,11 @@
     <h1>Tyler's Surfboard Shop</h1>
     <a href="about.html" class="btn btn-info btn-sm mb-3">About Us</a>
     <hr>
+
+    <div th:if="${message}" class="alert alert-info">
+        <p th:text="${message}"></p>
+    </div>
+
     <h2>Surfboard Parts</h2>
     <form th:action="@{/mainscreen}">
         Filter: <input type="text" name="partkeyword" id="partkeyword" size="50" th:value="${partkeyword}" required />
@@ -80,9 +85,11 @@
             <td th:text="${tempProduct.name}">1</td>
             <td th:text="${tempProduct.price}">1</td>
             <td th:text="${tempProduct.inv}">1</td>
-            <td><a th:href="@{/showProductFormForUpdate(productID=${tempProduct.id})}" class="btn btn-primary btn-sm mb-3">Update</a>
+            <td>
+                <a th:href="@{/showProductFormForUpdate(productID=${tempProduct.id})}" class="btn btn-primary btn-sm mb-3">Update</a>
                 <a th:href="@{/deleteproduct(productID=${tempProduct.id})}" class="btn btn-primary btn-sm mb-3"
                    onclick="if(!(confirm('Are you sure you want to delete this product?')))return false">Delete</a>
+                <a th:href="@{/buyproduct(productID=${tempProduct.id})}" class="btn btn-success btn-sm mb-3">Buy Now</a>
             </td>
         </tr>
         </tbody>

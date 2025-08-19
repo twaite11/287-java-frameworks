@@ -62,7 +62,7 @@ public class BootStrapData implements CommandLineRunner {
             fish.getParts().add(foam);
             fish.getParts().add(finSet);
 
-            Product gun = new Product("Gun Board", 250.0, 3);
+            Product gun = new Product( "Gun Board", 250.0, 3);
             gun.getParts().add(foam);
             gun.getParts().add(fiberglass);
             gun.getParts().add(stringer);
