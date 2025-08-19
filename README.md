@@ -1,26 +1,56 @@
-<strong>** DO NOT DISTRIBUTE OR PUBLICLY POST SOLUTIONS TO THESE LABS. MAKE ALL FORKS OF THIS REPOSITORY WITH SOLUTION CODE PRIVATE. PLEASE REFER TO THE STUDENT CODE OF CONDUCT AND ETHICAL EXPECTATIONS FOR COLLEGE OF INFORMATION TECHNOLOGY STUDENTS FOR SPECIFICS. ** </strong>
 
-# WESTERN GOVERNORS UNIVERSITY 
-## D287 – JAVA FRAMEWORKS
-Welcome to Java Frameworks! This is an opportunity for students to implement user interfaces and learn to leverage existing frameworks, assets, and content for object-oriented programming.
-FOR SPECIFIC TASK INSTRUCTIONS AND REQUIREMENTS FOR THIS ASSESSMENT, PLEASE REFER TO THE COURSE PAGE.
-## BASIC INSTRUCTIONS
-For this project, you will use the Integrated Development Environment (IDE) link in the web links section of this assessment to install the IDE, IntelliJ IDEA (Ultimate Edition). All relevant links are on the course page. Please refer to the course of study for specific links. You will sign up for a free student license using your WGU.edu email address. Please see the “IntelliJ Ultimate Edition Instructions” attachment for instructions on how do this. Next you will download the “Inventory Management Application Template Code” provided in the web links section and open it in IntelliJ IDEA (Ultimate Edition). You will upload this project to a private external GitLab repository and backup regularly. As a part of this, you have been provided with a base code (starting point). 
+C. Customize the HTML User Interface
+Prompt: Customize the HTML user interface for your customer’s application.
 
-## SUPPLEMENTAL RESOURCES  
-1.	How to clone a project to IntelliJ using Git?
+File: mainscreen.html
 
-> Ensure that you have Git installed on your system and that IntelliJ is installed using [Toolbox](https://www.jetbrains.com/toolbox-app/). Make sure that you are using version 2022.3.2. Once this has been confirmed, click the clone button and use the 'IntelliJ IDEA (HTTPS)' button. This will open IntelliJ with a prompt to clone the proejct. Save it in a safe location for the directory and press clone. IntelliJ will prompt you for your credentials. Enter in your WGU Credentials and the project will be cloned onto your local machine.  
+Change: Modified text elements to reflect the new business, "Tyler's Surfboard Shop". Headings for "Surfboard Parts" and "Surfboards."
 
-2. How to create a branch and start Development?
+D. Add an “About” Page
+Prompt: Add an “About” page to the application to describe your chosen customer’s company and include navigation to and from the “About” page and the main screen.
 
-- GitLab method
-> Press the '+' button located near your branch name. In the dropdown list, press the 'New branch' button. This will allow you to create a name for your branch. Once the branch has been named, you can select 'Create Branch' to push the branch to your repository.
+Files: mainscreen.html and about.html
 
-- IntelliJ method
-> In IntelliJ, Go to the 'Git' button on the top toolbar. Select the new branch option and create a name for the branch. Make sure checkout branch is selected and press create. You can now add a commit message and push the new branch to the local repo.
+Change: A new file, about.html, was created with a description of the company. A new "About Us" button was added to mainscreen.html to link to this page, and a link back to the main screen was added to about.html.
 
-## SUPPORT
-If you need additional support, please navigate to the course page and reach out to your course instructor.
-## FUTURE USE
-Take this opportunity to create or add to a simple resume portfolio to highlight and showcase your work for future use in career search, experience, and education!
+E. Add a Sample Inventory
+Prompt: Add a sample inventory appropriate for your chosen store.
+
+Files: BootStrapData.java, InhousePart.java, and OutsourcedPart.java.
+
+Changes: In BootStrapData.java, a conditional check was added to ensure the inventory is only created if the repositories are empty. Five new parts and five new products were created with names and prices appropriate for a surfboard shop. Constructors were added to both InhousePart.java and OutsourcedPart.java to accommodate the new parts.
+
+F. Add a “Buy Now” Button
+Prompt: Add a “Buy Now” button to your product list that decrements inventory by one.
+
+Files: mainscreen.html and MainScreenControllerr.java.
+
+Changes: A new "Buy Now" button was added to the product table in mainscreen.html. In MainScreenControllerr.java, a buyProduct method was created to handle the button's action, decrementing the product's inventory. An alert message was added to mainscreen.html to display the purchase status.
+
+G. Modify Parts to Track Maximum and Minimum Inventory
+Prompt: Modify the parts to track maximum and minimum inventory.
+
+Files: Part.java, BootStrapData.java, InhousePart.html, OutsourcedPart.html, InhousePart.java, OutsourcedPart.java, and application.properties.
+
+Changes: minInventory and maxInventory fields were added to the Part.java entity, along with new constructors and methods. The forms (InhousePart.html and OutsourcedPart.html) were updated with new input fields for these values. Sample parts in BootStrapData.java were updated with min/max values. The application.properties file was updated to use a new database name.
+
+H. Add Validation for Between or at the Maximum and Minimum Fields
+Prompt: Add validation for between or at the maximum and minimum fields.
+
+Files: ValidPartInventory.java (new file), PartInventoryValidator.java (new file), ValidEnufParts.java, InhousePart.java, and OutsourcedPart.java.
+
+Changes: A new validator was created to check if a part's inventory is within its specified min/max range. This validator was applied to the InhousePart and OutsourcedPart classes. The ValidEnufParts.java validator was modified to check that adding a product doesn't lower a part's inventory below its minimum.
+
+I. Add Unit Tests
+Prompt: Add at least two unit tests for the maximum and minimum fields to the PartTest class.
+
+File: PartTest.java
+
+Changes: Two new test methods, testInvBelowMin() and testInvAboveMax(), were added to PartTest.java to verify that an IllegalArgumentException is thrown when an invalid inventory value is set.
+
+J. Remove Unused Validators
+Prompt: Remove the class files for any unused validators in order to clean your code.
+
+Files: No changes were needed.
+
+Changes: No validator files were removed, as a review of the code indicated that all custom validators were in use.
