@@ -16,7 +16,7 @@ String companyName;
 
     public OutsourcedPart() {
     }//outsourcepart constructor defined and variables set
-    public OutsourcedPart(String name, double price, int inv, String companyName) {
+    public OutsourcedPart(String name, double price, int inv, int minInventory, int maxInventory, String companyName) {
         super(name, price, inv);
         this.companyName = companyName;
     }

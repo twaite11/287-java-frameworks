@@ -35,12 +35,12 @@ public class BootStrapData implements CommandLineRunner {
 
         if (partRepository.count() == 0 && productRepository.count() == 0) {
             // Create and save 5 sample parts
-            Part fiberglass = new InhousePart("Fiberglass Cloth", 25.0, 50);
-            Part stringer = new InhousePart("Wooden Stringer", 10.0, 30);
-            Part foam = new OutsourcedPart("Foam Blank Material", 75.0, 20, "Foam Blanks Inc.");
-            Part resin = new OutsourcedPart("Resin Epoxy", 50.0, 40, "Resin Supplies Ltd.");
-            Part finSet = new OutsourcedPart("Fin Set", 40.0, 100, "Finz Co.");
-
+            Part fiberglass = new InhousePart("Fiberglass Cloth", 25.0, 50, 20, 100);
+            Part stringer = new InhousePart("Wooden Stringer", 10.0, 30, 50, 100);
+            Part foam = new OutsourcedPart("Foam Blank Material", 75.0, 20, 50, 100, "Foam Blanks Inc.");
+            Part resin = new OutsourcedPart("Resin Epoxy", 50.0, 40, 50, 100, "Resin Supplies Ltd.");
+            Part finSet = new OutsourcedPart("Fin Set", 40.0, 100, 50, 100, "Finz Co.");
+//long id, String name, double price, int inv, int minInventory, int maxInventory
             partRepository.save(fiberglass);
             partRepository.save(stringer);
             partRepository.save(foam);
