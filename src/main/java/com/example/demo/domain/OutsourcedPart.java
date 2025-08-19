@@ -1,5 +1,7 @@
 package com.example.demo.domain;
 
+import com.example.demo.validators.ValidPartInventory;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -10,6 +12,7 @@ import javax.persistence.Entity;
  *
  */
 @Entity
+@ValidPartInventory
 @DiscriminatorValue("2")
 public class OutsourcedPart extends Part{
 String companyName;
