@@ -4,86 +4,105 @@ import com.example.demo.domain.InhousePart;
 import com.example.demo.domain.OutsourcedPart;
 import com.example.demo.domain.Part;
 import com.example.demo.domain.Product;
-import com.example.demo.repositories.OutsourcedPartRepository;
-import com.example.demo.repositories.PartRepository;
-import com.example.demo.repositories.ProductRepository;
 import com.example.demo.service.OutsourcedPartService;
-import com.example.demo.service.OutsourcedPartServiceImpl;
+import com.example.demo.service.PartService;
 import com.example.demo.service.ProductService;
-import com.example.demo.service.ProductServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Optional;
+import javax.validation.ConstraintViolationException;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class BootStrapData implements CommandLineRunner {
 
-    private final PartRepository partRepository;
-    private final ProductRepository productRepository;
-    private final OutsourcedPartRepository outsourcedPartRepository;
+    private final PartService partService;
+    private final ProductService productService;
+    private final OutsourcedPartService outsourcedPartService;
 
-    public BootStrapData(PartRepository partRepository, ProductRepository productRepository, OutsourcedPartRepository outsourcedPartRepository) {
-        this.partRepository = partRepository;
-        this.productRepository = productRepository;
-        this.outsourcedPartRepository=outsourcedPartRepository;
+    public BootStrapData(PartService partService, ProductService productService, OutsourcedPartService outsourcedPartService) {
+        this.partService = partService;
+        this.productService = productService;
+        this.outsourcedPartService = outsourcedPartService;
     }
 
     @Override
     public void run(String... args) throws Exception {
 
-        if (partRepository.count() == 0 && productRepository.count() == 0) {
+        if (partService.findAll().isEmpty() && productService.findAll().isEmpty()) {
+            System.out.println("Adding sample data via service layer...");
+
             // Create and save 5 sample parts
             Part fiberglass = new InhousePart("Fiberglass Cloth", 25.0, 50, 20, 100);
-            Part stringer = new InhousePart("Wooden Stringer", 10.0, 30, 50, 100);
-            Part foam = new OutsourcedPart("Foam Blank Material", 75.0, 20, 50, 100, "Foam Blanks Inc.");
-            Part resin = new OutsourcedPart("Resin Epoxy", 50.0, 40, 50, 100, "Resin Supplies Ltd.");
-            Part finSet = new OutsourcedPart("Fin Set", 40.0, 100, 50, 100, "Finz Co.");
-//long id, String name, double price, int inv, int minInventory, int maxInventory
-            partRepository.save(fiberglass);
-            partRepository.save(stringer);
-            partRepository.save(foam);
-            partRepository.save(resin);
-            partRepository.save(finSet);
+            Part stringer = new InhousePart("Wooden Stringer", 10.0, 60, 50, 100);
+            OutsourcedPart foam = new OutsourcedPart("Foam Blank Material", 75.0, 60, 50, 100, "Foam Blanks Inc.");
+            OutsourcedPart resin = new OutsourcedPart("Resin Epoxy", 50.0, 60, 50, 100, "Resin Supplies Ltd.");
+            OutsourcedPart finSet = new OutsourcedPart("Fin Set", 40.0, 60, 50, 100, "Finz Co.");
+
+            try {
+                partService.save(fiberglass);
+                partService.save(stringer);
+                outsourcedPartService.save(foam);
+                outsourcedPartService.save(resin);
+                outsourcedPartService.save(finSet);
+            } catch (ConstraintViolationException e) {
+                System.err.println("Validation failed for one or more parts:");
+                e.getConstraintViolations().forEach(violation -> System.err.println(violation.getMessage()));
+            }
 
             // Create and save 5 sample products
             Product longboard = new Product("Classic Longboard", 200.0, 5);
-            longboard.getParts().add(fiberglass);
-            longboard.getParts().add(foam);
-            longboard.getParts().add(finSet);
+            Set<Part> longboardParts = new HashSet<>();
+            longboardParts.add(fiberglass);
+            longboardParts.add(foam);
+            longboardParts.add(finSet);
+            longboard.setParts(longboardParts);
 
             Product shortboard = new Product("Performance Shortboard", 180.0, 8);
-            shortboard.getParts().add(fiberglass);
-            shortboard.getParts().add(foam);
-            shortboard.getParts().add(resin);
+            Set<Part> shortboardParts = new HashSet<>();
+            shortboardParts.add(fiberglass);
+            shortboardParts.add(foam);
+            shortboardParts.add(resin);
+            shortboard.setParts(shortboardParts);
 
             Product fish = new Product("Fish Funboard", 150.0, 10);
-            fish.getParts().add(foam);
-            fish.getParts().add(finSet);
+            Set<Part> fishParts = new HashSet<>();
+            fishParts.add(foam);
+            fishParts.add(finSet);
+            fish.setParts(fishParts);
 
-            Product gun = new Product( "Gun Board", 250.0, 3);
-            gun.getParts().add(foam);
-            gun.getParts().add(fiberglass);
-            gun.getParts().add(stringer);
-            gun.getParts().add(resin);
+            Product gun = new Product("Gun Board", 250.0, 3);
+            Set<Part> gunParts = new HashSet<>();
+            gunParts.add(foam);
+            gunParts.add(fiberglass);
+            gunParts.add(stringer);
+            gunParts.add(resin);
+            gun.setParts(gunParts);
 
             Product hybrid = new Product("Hybrid Board", 175.0, 6);
-            hybrid.getParts().add(foam);
-            hybrid.getParts().add(fiberglass);
-            hybrid.getParts().add(stringer);
+            Set<Part> hybridParts = new HashSet<>();
+            hybridParts.add(foam);
+            hybridParts.add(fiberglass);
+            hybridParts.add(stringer);
+            hybrid.setParts(hybridParts);
 
-            productRepository.save(longboard);
-            productRepository.save(shortboard);
-            productRepository.save(fish);
-            productRepository.save(gun);
-            productRepository.save(hybrid);
+            try {
+                productService.save(longboard);
+                productService.save(shortboard);
+                productService.save(fish);
+                productService.save(gun);
+                productService.save(hybrid);
+            } catch (ConstraintViolationException e) {
+                System.err.println("Validation failed for one or more products:");
+                e.getConstraintViolations().forEach(violation -> System.err.println(violation.getMessage()));
+            }
         }
 
         System.out.println("Started in Bootstrap");
-        System.out.println("Number of Products: " + productRepository.count());
-        System.out.println(productRepository.findAll());
-        System.out.println("Number of Parts: " + partRepository.count());
-        System.out.println(partRepository.findAll());
+        System.out.println("Number of Products: " + productService.findAll().size());
+        System.out.println(productService.findAll());
+        System.out.println("Number of Parts: " + partService.findAll().size());
+        System.out.println(partService.findAll());
     }
 }
