@@ -1,14 +1,14 @@
 
 C. Customize the HTML User Interface
 Prompt: Customize the HTML user interface for your customer’s application.
-
+Lines 5-9
 File: mainscreen.html
 
 Change: Modified text elements to reflect the new business, "Tyler's Surfboard Shop". Headings for "Surfboard Parts" and "Surfboards."
 
 D. Add an “About” Page
 Prompt: Add an “About” page to the application to describe your chosen customer’s company and include navigation to and from the “About” page and the main screen.
-
+Lines 12-24
 Files: mainscreen.html and about.html
 
 Change: A new file, about.html, was created with a description of the company. A new "About Us" button was added to mainscreen.html to link to this page, and a link back to the main screen was added to about.html.
